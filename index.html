@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4a2825">
+  <title>Para Angelo ♡</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --crema: #fff7e9;
+      --crema-oscuro: #f2e4cf;
+      --vino: #632f35;
+      --vino-claro: #a65f66;
+      --texto: #382622;
+      --rosa: #e9b6ae;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--crema);
+      color: var(--texto);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* PANTALLA INICIAL: MINECRAFT */
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      cursor: pointer;
+      background-color: #29201d;
+      background-image:
+        linear-gradient(90deg, #ffffff06 50%, transparent 50%),
+        linear-gradient(#ffffff05 50%, #00000012 50%);
+      background-size: 48px 48px, 48px 48px;
+      transition: opacity .8s ease, visibility .8s;
+    }
+
+    .intro::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center,
+          #a26a37 0%, #52372b 24%,
+          #29201d 72%);
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .intro.consumida {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-contenido {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      padding: 24px;
+      text-align: center;
+      animation: aparecer 1s ease both;
+    }
+
+    .texto-intro {
+      color: #fff4df;
+      font-family: 'Caveat', cursive;
+      font-size: clamp(2rem, 7vw, 3rem);
+      text-shadow: 2px 3px #211613;
+    }
+
+    .instruccion {
+      color: #e7c9a8;
+      font-size: .8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Horno hecho con CSS: no necesita una imagen externa */
+
+    .horno {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      border: 9px solid #35312f;
+      background: #8b8981;
+      box-shadow:
+        inset 0 0 0 5px #b7b2a5,
+        0 12px 0 #171311,
+        0 22px 45px #0008;
+      image-rendering: pixelated;
+      transition: transform .2s;
+    }
+
+    .horno:hover {
+      transform: scale(1.06);
+    }
+
+    .horno::before {
+      content: "";
+      position: absolute;
+      left: 17px;
+      right: 17px;
+      top: 16px;
+      height: 36px;
+      background: #211e1c;
+      border: 6px solid #625f58;
+      box-shadow: inset 0 5px #111;
+    }
+
+    .horno::after {
+      content: "";
+      position: absolute;
+      left: 25px;
+      right: 25px;
+      bottom: 10px;
+      height: 37px;
+      background:
+        linear-gradient(90deg,
+          #f8db42 0 20%,
+          #ff922b 20% 40%,
+          #fce35b 40% 60%,
+          #e95621 60% 80%,
+          #ffb72d 80%);
+      clip-path: polygon(
+        0 100%, 0 45%, 20% 45%, 20% 15%,
+        40% 15%, 40% 0, 60% 0, 60% 35%,
+        80% 35%, 80% 60%, 100% 60%, 100% 100%
+      );
+      animation: fuego .7s steps(2) infinite alternate;
+      filter: drop-shadow(0 0 9px #ff9d2e);
+    }
+
+    .destellos {
+      color: #ffedcb;
+      font-size: 2rem;
+      letter-spacing: 20px;
+      animation: latido 1.5s ease-in-out infinite;
+    }
+
+    /* FELICITACIÓN */
+
+    .felicitacion {
+      min-height: 100vh;
+      padding: 28px 16px 0;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity .9s ease, transform .9s ease;
+      pointer-events: none;
+    }
+
+    .felicitacion.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .tarjeta {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      width: 100%;
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 36px 30px 0;
+      border: 1px solid #e5d4bb;
+      border-radius: 190px 190px 12px 12px;
+      background:
+        radial-gradient(ellipse at 50% 35%,
+          #fffdf7 0%, transparent 75%),
+        var(--crema);
+      box-shadow: 0 15px 55px #59372b14;
+      text-align: center;
+    }
+
+    .mini-texto {
+      color: var(--vino-claro);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0 0;
+      color: var(--vino);
+      font-family: 'Caveat', cursive;
+      font-size: clamp(2.6rem, 8vw, 4.5rem);
+      font-weight: 700;
+      line-height: .98;
+    }
+
+    h1 span {
+      display: block;
+      font-size: 1.12em;
+    }
+
+    .corazon {
+      display: inline-block;
+      color: var(--vino-claro);
+      animation: latido 1.6s ease-in-out infinite;
+    }
+
+    .subtitulo {
+      margin-top: 14px;
+      color: #84645b;
+      font-family: 'Caveat', cursive;
+      font-size: 1.65rem;
+    }
+
+    .escena {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 4px;
+      min-height: 260px;
+      margin-top: 22px;
+    }
+
+    .snoopy {
+      z-index: 1;
+      display: block;
+      width: min(68%, 310px);
+      max-height: 350px;
+      object-fit: contain;
+      object-position: bottom;
+      filter: drop-shadow(0 5px 3px #68452b15);
+    }
+
+    .woodstock {
+      z-index: 2;
+      margin-bottom: 15px;
+      font-size: clamp(2rem, 8vw, 3.4rem);
+      filter: drop-shadow(0 3px 1px #9e713533);
+    }
+
+    .corazon-flotante {
+      position: absolute;
+      color: var(--vino-claro);
+      font-size: 1.8rem;
+    }
+
+    .corazon-uno {
+      top: 15%;
+      left: 9%;
+      transform: rotate(-15deg);
+    }
+
+    .corazon-dos {
+      top: 28%;
+      right: 8%;
+      transform: rotate(15deg);
+    }
+
+    .linea {
+      width: 100%;
+      height: 12px;
+      margin-top: 8px;
+      border-top: 2px dashed #d6bda0;
+      border-radius: 50%;
+    }
+
+    /* FOTO TIPO POLAROID */
+
+    .polaroid {
+      position: relative;
+      width: min(255px, 90%);
+      margin: 0 auto 26px;
+      padding: 12px 12px 17px;
+      background: #fffdf8;
+      border: 1px solid #e5d6c2;
+      box-shadow: 2px 7px 16px #563d2c20;
+      transform: rotate(-3deg);
+      transition: transform .3s ease;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.025);
+    }
+
+    .cinta {
+      position: absolute;
+      z-index: 2;
+      top: -13px;
+      left: 50%;
+      width: 82px;
+      padding: 5px;
+      color: #fff1df;
+      background: var(--vino-claro);
+      font-size: .75rem;
+      letter-spacing: 3px;
+      transform: translateX(-50%) rotate(4deg);
+    }
+
+    .foto-angelo {
+      display: block;
+      width: 100%;
+      height: 245px;
+      object-fit: cover;
+      object-position: center;
+      background: #eee2d2;
+    }
+
+    .pie-foto {
+      margin-top: 10px;
+      color: var(--vino);
+      font-family: 'Caveat', cursive;
+      font-size: 1.65rem;
+    }
+
+    .pie-foto span {
+      color: var(--vino-claro);
+    }
+
+    .pie-tarjeta {
+      position: relative;
+      margin: 0 -30px;
+      padding: 19px 12px 24px;
+      color: var(--vino);
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #e8b5aa 0 15px,
+          #fff0df 15px 30px
+        );
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+    }
+
+    .pie-tarjeta p {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: var(--crema);
+    }
+
+    .decoracion {
+      position: absolute;
+      z-index: -1;
+      color: #e7c7b8;
+      font-size: 4rem;
+      opacity: .6;
+    }
+
+    .decoracion-uno {
+      top: 35%;
+      left: -13px;
+      transform: rotate(-20deg);
+    }
+
+    .decoracion-dos {
+      top: 48%;
+      right: -10px;
+      transform: rotate(18deg);
+    }
+
+    .nota {
+      margin: 0 auto 22px;
+      color: #95766a;
+      font-size: .85rem;
+    }
+
+    @keyframes fuego {
+      from { filter: brightness(.9); }
+      to { filter: brightness(1.3); }
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .felicitacion {
+        padding: 16px 10px 0;
+      }
+
+      .tarjeta {
+        padding: 30px 18px 0;
+        border-radius: 115px 115px 10px 10px;
+      }
+
+      .escena {
+        min-height: 205px;
+      }
+
+      .snoopy {
+        max-height: 260px;
+      }
+
+      .foto-angelo {
+        height: 220px;
+      }
+
+      .pie-tarjeta {
+        margin: 0 -18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PANTALLA DE ENTRADA -->
+  <section
+    class="intro"
+    id="intro"
+    role="button"
+    tabindex="0"
+    aria-label="Haz clic en el horno para abrir tu sorpresa"
+  >
+    <div class="intro-contenido">
+      <p class="instruccion">✦ Un pequeño regalo para ti ✦</p>
+
+      <div class="horno" aria-hidden="true"></div>
+
+      <p class="texto-intro">Haz click en el horno</p>
+
+      <div class="destellos" aria-hidden="true">✧ ✦ ✧</div>
+    </div>
+  </section>
+
+  <!-- FELICITACIÓN -->
+  <main class="felicitacion" id="felicitacion">
+    <article class="tarjeta">
+
+      <span class="decoracion decoracion-uno">♡</span>
+      <span class="decoracion decoracion-dos">♡</span>
+
+      <p class="mini-texto">Un día especial para alguien especial</p>
+
+      <h1>
+        ¡Feliz Día del
+        <span>Chef, Angelo!</span>
+      </h1>
+
+      <p class="subtitulo">
+        Para el Chef cómico que has decidido ser.
+        <span class="corazon">♡</span>
+      </p>
+
+      <div class="escena">
+        <span class="corazon-flotante corazon-uno">♥</span>
+
+        <img
+          class="snoopy"
+          src="img/snoopy-chef2.jpg"
+          alt="Snoopy vestido de chef"
+          onerror="this.style.display='none'; document.getElementById('aviso-snoopy').hidden=false;"
+        >
+
+        
+
+        <span class="corazon-flotante corazon-dos">♥</span>
+      </div>
+
+      <p id="aviso-snoopy" class="nota" hidden>
+        Aquí irá tu ilustración de Snoopy cocinando ♡
+      </p>
+
+      <div class="linea"></div>
+
+      <div class="polaroid">
+        <span class="cinta">♡ ♥ ♡</span>
+
+        <img
+          class="foto-angelo"
+          src="img/angelo.jpeg"
+          alt="Una foto de Angelo"
+          onerror="this.style.display='none'; document.getElementById('aviso-foto').hidden=false;"
+        >
+
+        <p id="aviso-foto" class="nota" hidden>
+          Aquí va tu foto favorita de Angelo ♡
+        </p>
+
+        <p class="pie-foto">
+          El mejor chef <span>♥</span>
+        </p>
+      </div>
+
+      <p class="nota">
+        Hecho con mucho cariño para ti.
+      </p>
+
+      <footer class="pie-tarjeta">
+        <p>Que nunca te falten motivos para sonreír ♡</p>
+      </footer>
+
+    </article>
+  </main>
+
+  <script>
+    const intro = document.getElementById('intro');
+    const felicitacion = document.getElementById('felicitacion');
+
+    let abierta = false;
+
+    function abrirRegalo() {
+      if (abierta) return;
+
+      abierta = true;
+      intro.classList.add('consumida');
+
+      felicitacion.classList.add('visible');
+
+      // Permite desplazarse hasta la felicitación en móviles.
+      setTimeout(() => {
+        intro.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 850);
+    }
+
+    intro.addEventListener('click', abrirRegalo);
+
+    intro.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Enter' || evento.key === ' ') {
+        evento.preventDefault();
+        abrirRegalo();
+      }
+    });
+  </script>
+
+</body>
+</html>
